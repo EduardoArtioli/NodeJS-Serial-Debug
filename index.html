@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
+  </head>
+  <style>
+    html{
+      background-color: rgb(46, 46, 46);
+    }
+  </style>
+  <canvas id="myChart" style="background-color: rgb(46, 46, 46);"></canvas>
+</html>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+              labels:   [],
+              datasets: [{},{},{},{},{}]
+            },
+      options:{
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false
+              }
+  });
+</script>
+<script src="javas/socket.io.js"></script>
+<script src="javas/jquery-3.5.1.js"></script>
+<script>
+  var socket = io.connect('http://192.168.20.103:8000/');
+  
+  var data0,data1,data2,data3,data4;
+
+  socket.on('data0', function(data){  data0 = data;   });
+  socket.on('data1', function(data){  data1 = data;   });
+  socket.on('data2', function(data){  data2 = data;   });
+  socket.on('data3', function(data){  data3 = data;   });
+  socket.on('data4', function(data){  data4 = data;  });
+
+timeout();
+function timeout() {
+  setTimeout(function () {
+
+    chart.data.datasets[0].data.push(data0);
+    chart.data.datasets[0].label = 'I9-16';
+    chart.data.datasets[0].borderColor = 'rgb(255, 99, 132)';
+
+    chart.data.datasets[1].data.push(data1);
+    chart.data.datasets[1].label = 'I1-8';
+    chart.data.datasets[1].borderColor = 'rgb(255, 205, 86)';
+    
+    chart.data.datasets[2].data.push(data2);
+    chart.data.datasets[2].label = 'V-IN';
+    chart.data.datasets[2].borderColor = 'rgb(54, 162, 235)';
+
+    chart.data.datasets[3].data.push(data3);
+    chart.data.datasets[3].label = 'TEMP';
+    chart.data.datasets[3].borderColor = '#155724';
+
+    chart.data.datasets[4].data.push(data4);
+    chart.data.datasets[4].label = 'V-OUT';
+    chart.data.datasets[4].borderColor = '#818182';
+    
+    chart.data.labels.push(tempo);
+    chart.update();
+
+    timeout();
+  },100);
+}
+
+function addZero(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+var date = new Date();
+var hours = date.getHours();
+var minutes = addZero(date.getMinutes());
+var tempo = hours+':'+minutes;
+
+
+</script>

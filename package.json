@@ -1,0 +1,19 @@
+{
+  "name": "esp_tcp_server_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "mdns-js": "^1.0.3",
+    "node-dns-sd": "^0.4.1",
+    "serialport": "^9.0.1",
+    "socket.io": "^2.3.0"
+  }
+}

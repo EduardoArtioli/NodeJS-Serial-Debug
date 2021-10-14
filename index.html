@@ -15,7 +15,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
       type: 'line',
       data: {
               labels:   [],
-              datasets: [{},{},{},{},{}]
+              datasets: [{},{},{},{},{},{},{},{},{},{},{}]
             },
       options:{
                 responsive: true,
@@ -27,15 +27,21 @@ var ctx = document.getElementById('myChart').getContext('2d');
 <script src="javas/socket.io.js"></script>
 <script src="javas/jquery-3.5.1.js"></script>
 <script>
-  var socket = io.connect('http://192.168.20.103:8000/');
+  var socket = io.connect('http://192.168.20.106:8000/');
   
-  var data0,data1,data2,data3,data4;
+  var data0,data1,data2,data3,data4,data5,data6,data7,data8,data9,data10;
 
   socket.on('data0', function(data){  data0 = data;   });
   socket.on('data1', function(data){  data1 = data;   });
   socket.on('data2', function(data){  data2 = data;   });
   socket.on('data3', function(data){  data3 = data;   });
   socket.on('data4', function(data){  data4 = data;  });
+  socket.on('data5', function(data){  data5 = data;  });
+  socket.on('data6', function(data){  data6 = data;  });
+  socket.on('data7', function(data){  data7 = data;  });
+  socket.on('data8', function(data){  data8 = data;  });
+  socket.on('data9', function(data){  data9 = data;  });
+  socket.on('data10', function(data){  data10 = data;  });
 
 timeout();
 function timeout() {
@@ -43,26 +49,67 @@ function timeout() {
 
     chart.data.datasets[0].data.push(data0);
     chart.data.datasets[0].label = 'I9-16';
-    chart.data.datasets[0].borderColor = 'rgb(255, 99, 132)';
+    chart.data.datasets[0].borderColor = '#852942';
 
     chart.data.datasets[1].data.push(data1);
     chart.data.datasets[1].label = 'I1-8';
-    chart.data.datasets[1].borderColor = 'rgb(255, 205, 86)';
+    chart.data.datasets[1].borderColor = '#FA41CA';
     
     chart.data.datasets[2].data.push(data2);
     chart.data.datasets[2].label = 'V-IN';
-    chart.data.datasets[2].borderColor = 'rgb(54, 162, 235)';
+    chart.data.datasets[2].borderColor = '#F599A6';
 
     chart.data.datasets[3].data.push(data3);
     chart.data.datasets[3].label = 'TEMP';
-    chart.data.datasets[3].borderColor = '#155724';
+    chart.data.datasets[3].borderColor = '#ECE976';
 
     chart.data.datasets[4].data.push(data4);
     chart.data.datasets[4].label = 'V-OUT';
-    chart.data.datasets[4].borderColor = '#818182';
+    chart.data.datasets[4].borderColor = '#44B05B';
+
+    chart.data.datasets[5].data.push(data5);
+    chart.data.datasets[5].label = 'V-OUT';
+    chart.data.datasets[5].borderColor = '#96BDE4';
+
+    chart.data.datasets[6].data.push(data6);
+    chart.data.datasets[6].label = 'V-OUT';
+    chart.data.datasets[6].borderColor = '#792096';
+    
+    chart.data.datasets[7].data.push(data7);
+    chart.data.datasets[7].label = 'V-OUT';
+    chart.data.datasets[7].borderColor = '#EB4762';
+    
+    chart.data.datasets[8].data.push(data8);
+    chart.data.datasets[8].label = 'V-OUT';
+    chart.data.datasets[8].borderColor = '#D96237';
+    
+    chart.data.datasets[9].data.push(data9);
+    chart.data.datasets[9].label = 'V-OUT';
+    chart.data.datasets[9].borderColor = '#228BDC';
+    
+    chart.data.datasets[10].data.push(data10);
+    chart.data.datasets[10].label = 'V-OUT';
+    chart.data.datasets[10].borderColor = '#55FFFF';
     
     chart.data.labels.push(tempo);
     chart.update();
+
+    if(chart.data.datasets[0].data.length > 50){
+      chart.data.datasets[0].data.shift();
+      chart.data.datasets[1].data.shift();
+      chart.data.datasets[2].data.shift();
+      chart.data.datasets[3].data.shift();
+      chart.data.datasets[4].data.shift();
+      chart.data.datasets[5].data.shift();
+      chart.data.datasets[6].data.shift();
+      chart.data.datasets[7].data.shift();
+      chart.data.datasets[8].data.shift();
+      chart.data.datasets[9].data.shift();
+      chart.data.datasets[10].data.shift();
+      chart.data.labels.shift();
+    }
+
+    
 
     timeout();
   },100);

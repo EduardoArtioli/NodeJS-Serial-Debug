@@ -6,8 +6,8 @@ var io = require('socket.io')(httpServer);
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 
-const port = new SerialPort('COM6', {
-  baudRate: 19200
+const port = new SerialPort('COM13', {
+  baudRate: 78000
 });
 
 const parser = port.pipe(new Readline({ delimiter: '\n' }));
@@ -39,10 +39,35 @@ parser.on('data', function(data){
     case '[3]':
       console.log(data2[1]);
       io.emit('data3',data2[1]);
-      break;  
-    case '[4]':
-      console.log(data2[1]);
-      io.emit('data4',data2[1]);
+      break;
+      case '[4]':
+        console.log(data2[1]);
+        io.emit('data4',data2[1]);
+        break;
+      case '[5]':
+        console.log(data2[1]);
+        io.emit('data5',data2[1]);
+        break;
+      case '[6]':
+        console.log(data2[1]);
+        io.emit('data6',data2[1]);
+        break;
+      case '[7]':
+        console.log(data2[1]);
+        io.emit('data7',data2[1]);
+        break;
+      case '[8]':
+        console.log(data2[1]);
+        io.emit('data8',data2[1]);
+        break;
+      case '[9]':
+        console.log(data2[1]);
+        io.emit('data9',data2[1]);
+        break;
+      case '[10]':
+        console.log(data2[1]);
+        io.emit('data10',data2[1]);
+        break;
       break;
     default:
       break;
@@ -56,7 +81,7 @@ app.get('/', function(req, res,next) {
   res.sendFile(__dirname + '/index.html');
 });
 
-httpServer.listen(8000,'192.168.20.103');
+httpServer.listen(8000,'192.168.20.106');
 
 
 
